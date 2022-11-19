@@ -5,14 +5,36 @@ const cors = require('cors');
 app.use(cors())
 
 const categories = require('./data/categories.json')
+const news = require('./data/news.json')
 
-app.get('/', (req, res) =>{
+app.get('/', (req, res) => {
     res.send('News API Running')
 })
 
-app.get('/news-categories', (req, res) =>{
+app.get('/news', (req, res)=>{
+    res.send(news)
+})
+
+app.get('/news-categories', (req, res) => {
     res.send(categories)
 })
-app.listen(port, ()=>{
+
+app.get('/category/:id', (req, res) => {
+    const id = req.params.id;
+    if (id === '08') {
+        res.send(news)
+    }
+    else {
+        const selectedCategory = news.filter(n => id === n.category_id)
+        res.send(selectedCategory)
+    }
+})
+
+app.get('/news/:id', (req, res) => {
+    const id = req.params.id;
+    const selectedNews = news.find(n => id === n._id)
+    res.send(selectedNews)
+})
+app.listen(port, () => {
     console.log('Dragon news running on server', port)
 })
