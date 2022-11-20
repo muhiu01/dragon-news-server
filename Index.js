@@ -8,7 +8,7 @@ const categories = require('./data/categories.json')
 const news = require('./data/news.json')
 
 app.get('/', (req, res) => {
-    res.send('News API Running')
+    res.send('News API Running on')
 })
 
 app.get('/news', (req, res)=>{
